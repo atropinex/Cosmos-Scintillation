@@ -1,0 +1,37 @@
+# PostgreSQL. Edit this file or copy it to add another SQL engine. See docs/FORMATS.md.
+id: postgresql
+name: PostgreSQL
+description: A powerful open source relational database.
+family: relational
+exporter: sql
+defaultPort: 5432
+scriptExtension: sql
+terms: { container: Table, containers: Tables, row: Row, rows: Rows, field: Column, fields: Columns }
+relations: true
+defaultType: text
+keyType: uuid
+types:
+  - { id: uuid, label: uuid }
+  - { id: text, label: text }
+  - { id: varchar(255), label: varchar(255) }
+  - { id: char(1), label: char(1) }
+  - { id: integer, label: integer }
+  - { id: bigint, label: bigint }
+  - { id: smallint, label: smallint }
+  - { id: "numeric(12,2)", label: "numeric(12,2)" }
+  - { id: real, label: real }
+  - { id: double precision, label: double precision }
+  - { id: boolean, label: boolean }
+  - { id: date, label: date }
+  - { id: time, label: time }
+  - { id: timestamp, label: timestamp }
+  - { id: timestamptz, label: timestamptz }
+  - { id: jsonb, label: jsonb }
+  - { id: bytea, label: bytea }
+sql:
+  quote: '"'
+  autoIncrement: identity
+  tableSuffix: ""
+  header: ""
+  trueLiteral: "TRUE"
+  falseLiteral: "FALSE"

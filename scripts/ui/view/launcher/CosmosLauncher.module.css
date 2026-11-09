@@ -1,0 +1,167 @@
+.launcher {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 10px;
+    height: 56px;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--line);
+}
+
+.title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.sub {
+    color: var(--muted);
+}
+
+.grow {
+    flex: 1;
+}
+
+.body {
+    flex: 1;
+    padding: 20px 24px;
+    overflow-y: auto;
+}
+
+.enter {
+    margin-bottom: 10px;
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.row {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    transition: border-color var(--t-med) var(--ease-soft), box-shadow var(--t-med) var(--ease-soft);
+}
+
+.live {
+    border-color: color-mix(in srgb, #5fcf8e 55%, transparent);
+    box-shadow: 0 0 0 3px color-mix(in srgb, #5fcf8e 10%, transparent);
+}
+
+.main {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 14px;
+}
+
+.names {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-width: 0;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.meta {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.link {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.link:hover {
+    text-decoration: underline;
+}
+
+.error {
+    padding: 0 14px 10px 38px;
+    color: var(--danger);
+    font-size: 12px;
+}
+
+.details {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+    padding: 4px 14px 14px 38px;
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.desc {
+    margin: 0;
+    color: var(--muted);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.input {
+    width: 110px;
+    padding: 5px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    background: var(--background);
+    color: var(--text);
+    font: inherit;
+}
+
+.path {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 6px;
+    color: var(--text);
+}
+
+.path code {
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--wash);
+    font-size: 12px;
+}
+
+.hint {
+    color: var(--muted);
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.log {
+    align-self: stretch;
+    max-height: 220px;
+    margin: 0;
+    padding: 10px;
+    overflow: auto;
+    border-radius: 8px;
+    background: var(--background);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}

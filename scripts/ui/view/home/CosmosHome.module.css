@@ -1,0 +1,168 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    height: 56px;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--line);
+}
+
+.title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.spacer {
+    flex: 1;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+    padding: 20px 24px;
+    overflow-y: auto;
+}
+
+.heading {
+    margin: 0 0 12px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.current {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 20px;
+    padding: 10px 14px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--accent-soft);
+}
+
+.current-text {
+    flex: 1;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    padding: 14px;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 2px);
+    background: var(--panel);
+    text-align: left;
+    cursor: pointer;
+    opacity: 0;
+    animation: rise var(--t-med) var(--ease-out) forwards;
+    transition:
+        border-color var(--t-fast),
+        background var(--t-fast),
+        transform var(--t-fast) var(--ease-out);
+}
+
+.card:hover {
+    border-color: var(--accent);
+    background: var(--panel-raised);
+    transform: translateY(-2px);
+}
+
+.card.missing {
+    opacity: 0.55;
+}
+
+.preview {
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 4px;
+    width: 100%;
+    min-height: 74px;
+    max-height: 74px;
+    margin-bottom: 6px;
+    padding: 8px;
+    overflow: hidden;
+    border-radius: 10px;
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+.previewEmpty {
+    display: grid;
+    place-items: center;
+    width: 100%;
+}
+
+.chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    max-width: 100%;
+    padding: 2px 7px;
+    border-radius: 999px;
+    background: var(--panel);
+    color: var(--text);
+    font-size: 11px;
+}
+
+.chipApi {
+    color: var(--accent);
+}
+
+.chipName {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.chipCount {
+    color: var(--muted);
+}
+
+.name {
+    max-width: 100%;
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.meta,
+.date {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* Module keyframes are renamed per file, so each file that uses "rise" carries its own copy. */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

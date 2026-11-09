@@ -1,0 +1,15 @@
+name: Nebula
+author: Cosmos
+mode: dark
+radius: 12
+motion: 1
+
+colors:
+  background: "#0b0d1a"
+  panel: "#12152a"
+  panelRaised: "#1a1e3a"
+  text: "#e9ebff"
+  muted: "#8d93c4"
+  accent: "#b48cff"
+  onAccent: "#150b2a"
+  danger: "#ff7a8a"

@@ -1,0 +1,24 @@
+id: mongodb
+name: MongoDB
+description: A document database. Data is stored as JSON-like documents in collections.
+family: document
+exporter: mongo
+defaultPort: 27017
+scriptExtension: js
+terms: { container: Collection, containers: Collections, row: Document, rows: Documents, field: Field, fields: Fields }
+relations: true
+defaultType: string
+keyType: objectId
+types:
+  - { id: objectId, label: ObjectId }
+  - { id: string, label: string }
+  - { id: int, label: int }
+  - { id: long, label: long }
+  - { id: double, label: double }
+  - { id: decimal, label: decimal }
+  - { id: bool, label: bool }
+  - { id: date, label: date }
+  - { id: object, label: object }
+  - { id: array, label: array }
+  - { id: binData, label: binData }
+sql: { quote: '"', autoIncrement: none, tableSuffix: "", header: "", trueLiteral: "true", falseLiteral: "false" }

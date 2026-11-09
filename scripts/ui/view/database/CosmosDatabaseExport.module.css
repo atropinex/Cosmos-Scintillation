@@ -1,0 +1,57 @@
+.export {
+    flex: 1;
+    min-width: 0;
+    padding: 16px 20px;
+    overflow-y: auto;
+    animation: fade var(--t-med) var(--ease-out) both;
+}
+
+.bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.text {
+    color: var(--muted);
+}
+
+.note {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 0 0 8px;
+    color: #e7b84b;
+}
+
+.file {
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.name {
+    padding: 8px 12px;
+    background: var(--panel-raised);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+}
+
+.code {
+    max-height: 60vh;
+    margin: 0;
+    padding: 12px;
+    overflow: auto;
+    background: var(--panel);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+@keyframes fade {
+    from {
+        opacity: 0;
+    }
+}

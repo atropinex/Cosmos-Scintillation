@@ -1,0 +1,8 @@
+# The local web server. It is built into the app, so nothing has to be installed.
+id: static
+name: Local web server
+description: Serves a folder of HTML, CSS and JavaScript on this computer only. Choose the folder in the launcher.
+category: Web
+kind: builtin-static
+defaultPort: 8080
+url: "http://{host}:{port}"

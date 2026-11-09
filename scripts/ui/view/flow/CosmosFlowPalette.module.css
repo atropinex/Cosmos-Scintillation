@@ -1,0 +1,128 @@
+.palette {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    width: 218px;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.search {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    margin: 10px;
+    padding: 0 10px;
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    color: var(--muted);
+    transition: border-color var(--t-fast) var(--ease-soft);
+}
+
+.search:focus-within {
+    border-color: var(--accent);
+}
+
+.search input {
+    flex: 1;
+    min-width: 0;
+    padding: 7px 0;
+    border: 0;
+    background: transparent;
+    color: var(--text);
+    font: inherit;
+    outline: none;
+}
+
+.list {
+    flex: 1;
+    min-height: 0;
+    padding: 0 8px 12px;
+    overflow-y: auto;
+}
+
+.category {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    margin-top: 6px;
+    padding: 6px 6px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-align: left;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+.category:hover {
+    background: var(--wash);
+}
+
+.category svg:last-child {
+    margin-left: auto;
+}
+
+.swatch {
+    width: 8px;
+    height: 8px;
+    border-radius: 2px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+    height: 30px;
+    margin-left: 14px;
+    padding: 0 10px;
+    border-radius: 6px;
+    cursor: grab;
+    transition: background var(--t-fast) var(--ease-soft), transform var(--t-fast) var(--ease-out);
+    animation: slide var(--t-med) var(--ease-out) both;
+}
+
+.item:hover {
+    background: var(--accent-soft);
+    transform: translateX(3px);
+}
+
+.name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.dim {
+    opacity: 0.45;
+}
+
+.none {
+    padding: 14px;
+    color: var(--muted);
+    text-align: center;
+}
+
+@keyframes slide {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+}
+
+.tabs {
+    display: flex;
+    margin: 10px 10px 0;
+}
+
+.tabs > button {
+    flex: 1;
+}

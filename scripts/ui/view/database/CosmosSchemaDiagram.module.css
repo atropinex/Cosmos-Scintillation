@@ -1,0 +1,184 @@
+.host {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    background-color: var(--stage);
+    background-image: radial-gradient(var(--line-strong) 1px, transparent 1px);
+    background-size: 20px 20px;
+    cursor: grab;
+    touch-action: none;
+}
+
+.host:active {
+    cursor: grabbing;
+}
+
+.layer {
+    position: absolute;
+    inset: 0 auto auto 0;
+    transform-origin: 0 0;
+}
+
+.lines {
+    position: absolute;
+    left: 0;
+    top: 0;
+    pointer-events: none;
+}
+
+.relation path {
+    fill: none;
+    stroke: var(--muted);
+    stroke-width: 1.5;
+    opacity: 0.55;
+    transition: stroke var(--t-fast) var(--ease-soft), opacity var(--t-fast) var(--ease-soft);
+}
+
+.relation text {
+    fill: var(--muted);
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.relation.active path {
+    stroke: var(--accent);
+    opacity: 1;
+}
+
+.relation.active text {
+    fill: var(--accent);
+}
+
+.ghost {
+    fill: none;
+    stroke: var(--accent);
+    stroke-dasharray: 5 4;
+    stroke-width: 1.5;
+}
+
+.card {
+    position: absolute;
+    overflow: hidden;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel);
+    box-shadow: 0 6px 22px #0004;
+    cursor: default;
+    transition: border-color var(--t-fast) var(--ease-soft), box-shadow var(--t-med) var(--ease-soft);
+    animation: pop var(--t-med) var(--ease-out) both;
+}
+
+.card:hover {
+    box-shadow: 0 10px 30px #0006;
+}
+
+.selected {
+    border-color: var(--accent);
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    background: var(--panel-raised);
+    font-weight: 600;
+    cursor: grab;
+}
+
+.table-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.count {
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 400;
+}
+
+.row {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0 10px 0 8px;
+    border-top: 1px solid var(--line);
+    transition: background var(--t-fast) var(--ease-soft);
+}
+
+.row:hover,
+.row-selected {
+    background: var(--wash);
+}
+
+.key-icon {
+    display: inline-flex;
+    flex: none;
+    width: 14px;
+    color: var(--accent);
+}
+
+.column-name {
+    flex: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.flag {
+    color: var(--muted);
+    font-size: 10px;
+    font-weight: 700;
+}
+
+.type {
+    max-width: 90px;
+    overflow: hidden;
+    color: var(--muted);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 11px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.handle {
+    position: absolute;
+    top: 50%;
+    right: -1px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0;
+    transform: translate(50%, -50%) scale(0.5);
+    cursor: crosshair;
+    transition: opacity var(--t-fast) var(--ease-soft), transform var(--t-fast) var(--ease-out);
+}
+
+.row:hover .handle {
+    opacity: 1;
+    transform: translate(50%, -50%) scale(1);
+}
+
+.tools {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+}
+
+@keyframes pop {
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+}

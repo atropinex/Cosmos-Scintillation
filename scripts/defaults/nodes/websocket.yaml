@@ -1,0 +1,66 @@
+# WebSocket nodes. Messages are JSON: {"event": "name", "data": ...}.
+nodes:
+  - id: wsSend
+    name: Send to sender
+    category: WebSocket
+    description: Answers the client that sent the message.
+    pure: false
+    capability: websocket
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: data, name: Data, direction: in, type: any }
+    props:
+      - { key: event, label: Event name, type: text, default: reply }
+    templates:
+      typescript: |
+        wsrt.send(ws, {{str.event}}, {{in.data}});
+        {{flow.then}}
+      python: |
+        await wsrt.send(ws, {{str.event}}, {{in.data}})
+        {{flow.then}}
+      ruby: |
+        WsRt.emit(ws, {{str.event}}, {{in.data}})
+        {{flow.then}}
+      go: |
+        rt.WsSend(ws, {{str.event}}, {{in.data}})
+        {{flow.then}}
+      rust: |
+        wsrt::send(ws, {{str.event}}, &{{in.data}}).await;
+        {{flow.then}}
+      csharp: |
+        await WsRt.Send(ws, {{str.event}}, {{in.data}});
+        {{flow.then}}
+
+  - id: wsBroadcast
+    name: Broadcast
+    category: WebSocket
+    description: Sends a message to the other connected clients, or to all of them including the sender.
+    pure: false
+    capability: websocket
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: data, name: Data, direction: in, type: any }
+    props:
+      - { key: event, label: Event name, type: text, default: broadcast }
+      - { key: to, label: To, type: select, default: others, options: [ { value: others, label: "Everyone else" }, { value: all, label: "Everyone" } ] }
+    templates:
+      typescript: |
+        wsrt.broadcast(ws, {{str.event}}, {{in.data}}, {{str.to}});
+        {{flow.then}}
+      python: |
+        await wsrt.broadcast(ws, {{str.event}}, {{in.data}}, {{str.to}})
+        {{flow.then}}
+      ruby: |
+        WsRt.broadcast(ws, {{str.event}}, {{in.data}}, {{str.to}})
+        {{flow.then}}
+      go: |
+        rt.WsBroadcast(ws, {{str.event}}, {{in.data}}, {{str.to}})
+        {{flow.then}}
+      rust: |
+        wsrt::broadcast(ws, {{str.event}}, &{{in.data}}, {{str.to}}).await;
+        {{flow.then}}
+      csharp: |
+        await WsRt.Broadcast(ws, {{str.event}}, {{in.data}}, {{str.to}});
+        {{flow.then}}

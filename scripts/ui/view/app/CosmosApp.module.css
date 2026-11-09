@@ -1,0 +1,92 @@
+.app {
+    position: relative;
+    display: flex;
+    height: 100%;
+    overflow: hidden;
+    background: var(--background);
+}
+
+/* === Rail === */
+.rail {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: 68px;
+    padding: 12px 6px;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.mark {
+    width: 24px;
+    height: 24px;
+    margin: 2px 0 12px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, var(--text), var(--accent) 55%, transparent 72%);
+    box-shadow: 0 0 18px var(--accent-soft);
+}
+
+.rail-button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+    width: 100%;
+    padding: 8px 0 6px;
+    border: 0;
+    border-radius: var(--radius);
+    background: transparent;
+    color: var(--muted);
+    cursor: pointer;
+    transition:
+        background var(--t-fast),
+        color var(--t-fast),
+        transform var(--t-fast) var(--ease-out);
+}
+
+.rail-button:hover {
+    background: var(--wash);
+    color: var(--text);
+}
+
+.rail-button:active {
+    transform: scale(0.95);
+}
+
+.rail-button.active {
+    background: var(--accent-soft);
+    color: var(--accent);
+}
+
+.rail-label {
+    font-size: 10px;
+    line-height: 1;
+}
+
+.grow {
+    flex: 1;
+}
+
+/* === Stage === */
+.stage {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    animation: rise var(--t-med) var(--ease-out);
+}
+
+/* Module keyframes are renamed per file, so each file that uses "rise" carries its own copy. */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

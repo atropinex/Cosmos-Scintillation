@@ -1,0 +1,166 @@
+.panel {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    width: 330px;
+    border-left: 1px solid var(--line);
+    background: var(--panel);
+    animation: slide var(--t-med) var(--ease-out) both;
+}
+
+.top {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--line);
+}
+
+.title {
+    flex: 1;
+    font-weight: 600;
+}
+
+.list {
+    flex: 1;
+    min-height: 0;
+    padding: 8px;
+    overflow-y: auto;
+}
+
+.column {
+    margin-bottom: 6px;
+    padding: 8px;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) - 2px);
+    transition: border-color var(--t-fast) var(--ease-soft), background var(--t-fast) var(--ease-soft);
+}
+
+.picked {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+}
+
+.line {
+    display: flex;
+    gap: 6px;
+}
+
+.input,
+.select {
+    min-width: 0;
+    padding: 5px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    background: var(--background);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+    transition: border-color var(--t-fast) var(--ease-soft);
+}
+
+.input {
+    flex: 1;
+}
+
+.select {
+    width: 124px;
+}
+
+.input:focus,
+.select:focus {
+    border-color: var(--accent);
+}
+
+.chips {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 4px;
+    margin-top: 6px;
+}
+
+.chip {
+    padding: 2px 9px;
+    border: 1px solid var(--line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 11px;
+    cursor: pointer;
+    transition: background var(--t-fast) var(--ease-soft), color var(--t-fast) var(--ease-soft), border-color var(--t-fast) var(--ease-soft);
+}
+
+.chip:disabled {
+    opacity: 0.4;
+    cursor: default;
+}
+
+.on {
+    border-color: var(--accent);
+    background: var(--accent-soft);
+    color: var(--text);
+}
+
+.linked {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    margin-left: auto;
+    color: var(--accent);
+    font-size: 11px;
+}
+
+.more {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid var(--line);
+    animation: slide var(--t-med) var(--ease-out) both;
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.field .select {
+    width: auto;
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.actions {
+    display: flex;
+    gap: 6px;
+}
+
+.empty {
+    padding: 16px;
+    color: var(--muted);
+    text-align: center;
+}
+
+.foot {
+    flex: none;
+    padding: 10px 12px;
+    border-top: 1px solid var(--line);
+}
+
+@keyframes slide {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}

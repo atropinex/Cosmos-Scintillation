@@ -1,0 +1,11 @@
+.message {
+    margin: 0 0 12px;
+    color: var(--muted);
+    line-height: 1.6;
+}
+
+.typed {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}

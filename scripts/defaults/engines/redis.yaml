@@ -1,0 +1,22 @@
+id: redis
+name: Redis
+description: A very fast key-value store, often used as a cache. A "key group" is a pattern such as user:{id}.
+family: keyvalue
+exporter: redis
+defaultPort: 6379
+scriptExtension: txt
+terms: { container: Key group, containers: Key groups, row: Entry, rows: Entries, field: Field, fields: Fields }
+relations: false
+defaultType: string
+keyType: string
+types:
+  - { id: string, label: string }
+  - { id: integer, label: integer }
+  - { id: float, label: float }
+  - { id: boolean, label: boolean }
+  - { id: json, label: json }
+  - { id: list, label: list }
+  - { id: set, label: set }
+  - { id: zset, label: sorted set }
+  - { id: hash, label: hash }
+sql: { quote: '"', autoIncrement: none, tableSuffix: "", header: "", trueLiteral: "true", falseLiteral: "false" }

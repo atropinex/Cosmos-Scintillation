@@ -1,0 +1,29 @@
+# Cosmos-Scintillation keybinds. Change "keys" here or in Settings.
+#
+# Key names: letters, digits, F1-F12, Delete, Backspace, Enter, Space, Up, Down, Left, Right, [ ] = - , . / etc.
+# Modifiers: Mod (Ctrl on Windows and Linux, Cmd on a Mac), Alt, Shift. Example: Mod+Shift+Z
+
+actions:
+  # File
+  - { id: save, label: Save project, group: File, keys: Mod+S }
+  - { id: export, label: Export, group: File, keys: Mod+E }
+  - { id: goHome, label: Back to projects, group: File, keys: Mod+W }
+  - { id: openSettings, label: Open settings, group: File, keys: "Mod+," }
+
+  # Edit
+  - { id: undo, label: Undo, group: Edit, keys: Mod+Z }
+  - { id: redo, label: Redo, group: Edit, keys: Mod+Shift+Z }
+  - { id: redoAlt, label: Redo (alternative), group: Edit, keys: Mod+Y }
+  - { id: copy, label: Copy, group: Edit, keys: Mod+C }
+  - { id: cut, label: Cut, group: Edit, keys: Mod+X }
+  - { id: paste, label: Paste, group: Edit, keys: Mod+V }
+  - { id: duplicate, label: Duplicate, group: Edit, keys: Mod+D }
+  - { id: delete, label: Delete selection, group: Edit, keys: Delete }
+  - { id: selectAll, label: Select all, group: Edit, keys: Mod+A }
+  - { id: find, label: Find, group: Edit, keys: Mod+F }
+
+  # View
+  - { id: fit, label: Zoom to fit, group: View, keys: Mod+0 }
+  - { id: zoomIn, label: Zoom in, group: View, keys: "Mod+=" }
+  - { id: zoomOut, label: Zoom out, group: View, keys: "Mod+-" }
+  - { id: toggleSidebar, label: Show or hide the sidebar, group: View, keys: Mod+B }

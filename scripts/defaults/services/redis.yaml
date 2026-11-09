@@ -1,0 +1,9 @@
+id: redis
+name: Redis
+description: A Redis server for caches and queues. Nothing is saved to disk unless you change the arguments.
+category: Cache
+kind: process
+defaultPort: 6379
+detect: [ redis-server, valkey-server ]
+installHint: Install Redis (redis.io) or Valkey, or pick the redis-server program yourself.
+args: [ "--port", "{port}", "--bind", "{host}", "--dir", "{data}", "--protected-mode", "yes" ]

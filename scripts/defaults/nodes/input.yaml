@@ -1,0 +1,128 @@
+# Pure nodes that read the request or hold a constant. They are written inline as one expression.
+# In a WebSocket event the "body" is the message data; query, path and header are empty there.
+nodes:
+  - id: bodyField
+    name: Body field
+    category: Input
+    description: One field of the JSON body (or of the WebSocket message data). Empty when missing.
+    pure: true
+    capability: any
+    pins:
+      - { id: value, name: Value, direction: out, type: any }
+    props:
+      - { key: key, label: Field, type: text, default: title }
+    templates:
+      typescript: rt.body(req, {{str.key}})
+      python: rt.body(req, {{str.key}})
+      ruby: Rt.body(req, {{str.key}})
+      go: rt.Body(req, {{str.key}})
+      rust: rt::body(&req, {{str.key}})
+      csharp: Rt.Body(req, {{str.key}})
+
+  - id: queryParam
+    name: Query parameter
+    category: Input
+    description: A value from the URL after "?", for example ?page=2. Always text, empty when missing.
+    pure: true
+    capability: rest
+    pins:
+      - { id: value, name: Value, direction: out, type: any }
+    props:
+      - { key: key, label: Name, type: text, default: page }
+    templates:
+      typescript: rt.query(req, {{str.key}})
+      python: rt.query(req, {{str.key}})
+      ruby: Rt.query(req, {{str.key}})
+      go: rt.Query(req, {{str.key}})
+      rust: rt::query(&req, {{str.key}})
+      csharp: Rt.Query(req, {{str.key}})
+
+  - id: pathParam
+    name: Path parameter
+    category: Input
+    description: A :name part of the route path, for example :id in /items/:id. Always text.
+    pure: true
+    capability: rest
+    pins:
+      - { id: value, name: Value, direction: out, type: any }
+    props:
+      - { key: key, label: Name, type: text, default: id }
+    templates:
+      typescript: rt.param(req, {{str.key}})
+      python: rt.param(req, {{str.key}})
+      ruby: Rt.param(req, {{str.key}})
+      go: rt.Param(req, {{str.key}})
+      rust: rt::param(&req, {{str.key}})
+      csharp: Rt.Param(req, {{str.key}})
+
+  - id: headerValue
+    name: Header
+    category: Input
+    description: A request header, for example User-Agent. Empty when missing.
+    pure: true
+    capability: rest
+    pins:
+      - { id: value, name: Value, direction: out, type: any }
+    props:
+      - { key: key, label: Header, type: text, default: User-Agent }
+    templates:
+      typescript: rt.header(req, {{str.key}})
+      python: rt.header(req, {{str.key}})
+      ruby: Rt.header(req, {{str.key}})
+      go: rt.Header(req, {{str.key}})
+      rust: rt::header(&req, {{str.key}})
+      csharp: Rt.Header(req, {{str.key}})
+
+  - id: textValue
+    name: Text
+    category: Values
+    description: A fixed piece of text. Type it into the pin.
+    pure: true
+    capability: any
+    pins:
+      - { id: text, name: Text, direction: in, type: string, default: "" }
+      - { id: value, name: Value, direction: out, type: string }
+    props: []
+    templates:
+      typescript: "{{in.text}}"
+      python: "{{in.text}}"
+      ruby: "{{in.text}}"
+      go: "{{in.text}}"
+      rust: "{{in.text}}"
+      csharp: "{{in.text}}"
+
+  - id: numberValue
+    name: Number
+    category: Values
+    description: A fixed number. Type it into the pin.
+    pure: true
+    capability: any
+    pins:
+      - { id: number, name: Number, direction: in, type: number, default: 0 }
+      - { id: value, name: Value, direction: out, type: number }
+    props: []
+    templates:
+      typescript: "{{in.number}}"
+      python: "{{in.number}}"
+      ruby: "{{in.number}}"
+      go: "{{in.number}}"
+      rust: "{{in.number}}"
+      csharp: "{{in.number}}"
+
+  - id: boolValue
+    name: Yes / No
+    category: Values
+    description: A fixed true or false.
+    pure: true
+    capability: any
+    pins:
+      - { id: flag, name: Value, direction: in, type: boolean, default: false }
+      - { id: value, name: Value, direction: out, type: boolean }
+    props: []
+    templates:
+      typescript: "{{in.flag}}"
+      python: "{{in.flag}}"
+      ruby: "{{in.flag}}"
+      go: "{{in.flag}}"
+      rust: "{{in.flag}}"
+      csharp: "{{in.flag}}"

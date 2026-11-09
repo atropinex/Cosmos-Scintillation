@@ -1,0 +1,127 @@
+.page {
+    display: flex;
+    height: 100%;
+}
+
+.main {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+    align-items: flex-start;
+    min-width: 0;
+    padding: 20px 24px;
+    overflow-y: auto;
+}
+
+.main > * {
+    max-width: 640px;
+}
+
+.title {
+    margin: 0 0 6px;
+    font-size: 15px;
+}
+
+.heading {
+    margin: 14px 0 2px;
+    color: var(--muted);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.secret,
+.row,
+.header,
+.endpoint {
+    display: flex;
+    align-self: stretch;
+    align-items: center;
+    gap: 6px;
+}
+
+.endpoint {
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.test {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    gap: 8px;
+    width: 400px;
+    padding: 20px 16px;
+    overflow-y: auto;
+    border-left: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.test .heading {
+    margin-top: 0;
+}
+
+.body {
+    min-height: 90px;
+    resize: vertical;
+}
+
+.response {
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.status {
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.good {
+    color: #5fcf8e;
+}
+
+.bad {
+    color: var(--danger);
+}
+
+.code,
+.console {
+    max-height: 340px;
+    margin: 0;
+    padding: 10px;
+    overflow: auto;
+    border-radius: 8px;
+    background: var(--background);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    white-space: pre-wrap;
+    word-break: break-all;
+}
+
+.console {
+    min-height: 160px;
+}
+
+.line {
+    padding: 2px 0;
+}
+
+.open {
+    color: #5fcf8e;
+}
+
+.close,
+.error {
+    color: var(--danger);
+}
+
+.muted {
+    color: var(--muted);
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+}

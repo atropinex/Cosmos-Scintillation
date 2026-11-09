@@ -1,0 +1,222 @@
+# Decisions, checks and small helpers for text and numbers. All helpers are plain functions of the generated runtime file.
+nodes:
+  - id: compare
+    name: Compare
+    category: Logic
+    description: Compares two values. Numbers are compared as numbers, everything else as text.
+    pure: true
+    capability: any
+    pins:
+      - { id: a, name: A, direction: in, type: any }
+      - { id: b, name: B, direction: in, type: any }
+      - { id: value, name: Result, direction: out, type: boolean }
+    props:
+      - { key: op, label: Operator, type: select, default: eq, options: [ { value: eq, label: "is equal to" }, { value: ne, label: "is not equal to" }, { value: lt, label: "is less than" }, { value: le, label: "is at most" }, { value: gt, label: "is greater than" }, { value: ge, label: "is at least" }, { value: contains, label: "contains" }, { value: startsWith, label: "starts with" } ] }
+    templates:
+      typescript: rt.cmp({{in.a}}, {{str.op}}, {{in.b}})
+      python: rt.cmp({{in.a}}, {{str.op}}, {{in.b}})
+      ruby: Rt.cmp({{in.a}}, {{str.op}}, {{in.b}})
+      go: rt.Cmp({{in.a}}, {{str.op}}, {{in.b}})
+      rust: rt::cmp(&{{in.a}}, {{str.op}}, &{{in.b}})
+      csharp: Rt.Cmp({{in.a}}, {{str.op}}, {{in.b}})
+
+  - id: logicOp
+    name: And / Or / Not
+    category: Logic
+    description: Combines yes/no values. "Not" only looks at A.
+    pure: true
+    capability: any
+    pins:
+      - { id: a, name: A, direction: in, type: any }
+      - { id: b, name: B, direction: in, type: any }
+      - { id: value, name: Result, direction: out, type: boolean }
+    props:
+      - { key: op, label: Operator, type: select, default: and, options: [ { value: and, label: And }, { value: or, label: Or }, { value: not, label: Not } ] }
+    templates:
+      typescript: rt.logic({{in.a}}, {{str.op}}, {{in.b}})
+      python: rt.logic({{in.a}}, {{str.op}}, {{in.b}})
+      ruby: Rt.logic({{in.a}}, {{str.op}}, {{in.b}})
+      go: rt.Logic({{in.a}}, {{str.op}}, {{in.b}})
+      rust: rt::logic(&{{in.a}}, {{str.op}}, &{{in.b}})
+      csharp: Rt.Logic({{in.a}}, {{str.op}}, {{in.b}})
+
+  - id: branch
+    name: Branch
+    category: Flow
+    description: Continues on "True" when the condition is yes, on "False" otherwise. Empty, 0, "false" and "no" count as no.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: condition, name: Condition, direction: in, type: boolean, default: false }
+      - { id: "true", name: "True", direction: out, type: exec }
+      - { id: "false", name: "False", direction: out, type: exec }
+    props: []
+    templates:
+      typescript: |
+        if (rt.truthy({{in.condition}})) {
+            {{flow.true}}
+        } else {
+            {{flow.false}}
+        }
+      python: |
+        if rt.truthy({{in.condition}}):
+            pass
+            {{flow.true}}
+        else:
+            pass
+            {{flow.false}}
+      ruby: |
+        if Rt.truthy({{in.condition}})
+          {{flow.true}}
+        else
+          {{flow.false}}
+        end
+      go: |
+        if rt.Truthy({{in.condition}}) {
+            {{flow.true}}
+        } else {
+            {{flow.false}}
+        }
+      rust: |
+        if rt::truthy(&{{in.condition}}) {
+            {{flow.true}}
+        } else {
+            {{flow.false}}
+        }
+      csharp: |
+        if (Rt.Truthy({{in.condition}}))
+        {
+            {{flow.true}}
+        }
+        else
+        {
+            {{flow.false}}
+        }
+
+  - id: validate
+    name: Validate
+    category: Database
+    description: Checks the data against the table's columns (types, required, unknown fields dropped). Answers 400 and stops when it is wrong. Without wired "Data" the JSON body is checked.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: Valid, direction: out, type: exec }
+      - { id: data, name: Data, direction: in, type: object }
+      - { id: clean, name: Clean data, direction: out, type: object }
+    props:
+      - { key: table, label: Table, type: table, default: "" }
+      - { key: mode, label: Mode, type: select, default: full, options: [ { value: full, label: "All required fields" }, { value: partial, label: "Only the fields that are sent" } ] }
+    templates:
+      typescript: |
+        const {{out.clean}} = store.validate({{str.table}}, rt.orBody(req, {{in.data}}), {{str.mode}});
+        {{flow.then}}
+      python: |
+        {{out.clean}} = store.validate({{str.table}}, rt.or_body(req, {{in.data}}), {{str.mode}})
+        {{flow.then}}
+      ruby: |
+        {{out.clean}} = Store.validate({{str.table}}, Rt.or_body(req, {{in.data}}), {{str.mode}})
+        {{flow.then}}
+      go: |
+        {{out.clean}} := store.Validate({{str.table}}, rt.OrBody(req, {{in.data}}), {{str.mode}})
+        {{flow.then}}
+      rust: |
+        let {{out.clean}} = store::validate({{str.table}}, &rt::or_body(&req, &{{in.data}}), {{str.mode}})?;
+        {{flow.then}}
+      csharp: |
+        var {{out.clean}} = Store.Validate({{str.table}}, Rt.OrBody(req, {{in.data}}), {{str.mode}});
+        {{flow.then}}
+
+  - id: textJoin
+    name: Join text
+    category: Text
+    description: Puts two values together as text, with a separator between them.
+    pure: true
+    capability: any
+    pins:
+      - { id: a, name: A, direction: in, type: any }
+      - { id: b, name: B, direction: in, type: any }
+      - { id: value, name: Text, direction: out, type: string }
+    props:
+      - { key: separator, label: Separator, type: text, default: "" }
+    templates:
+      typescript: rt.concat({{in.a}}, {{in.b}}, {{str.separator}})
+      python: rt.concat({{in.a}}, {{in.b}}, {{str.separator}})
+      ruby: Rt.concat({{in.a}}, {{in.b}}, {{str.separator}})
+      go: rt.Concat({{in.a}}, {{in.b}}, {{str.separator}})
+      rust: rt::concat(&{{in.a}}, &{{in.b}}, {{str.separator}})
+      csharp: Rt.Concat({{in.a}}, {{in.b}}, {{str.separator}})
+
+  - id: textTransform
+    name: Change text
+    category: Text
+    description: Upper case, lower case, trimmed, or the length of a text.
+    pure: true
+    capability: any
+    pins:
+      - { id: text, name: Text, direction: in, type: any }
+      - { id: value, name: Result, direction: out, type: any }
+    props:
+      - { key: op, label: Change, type: select, default: trim, options: [ { value: upper, label: "UPPER CASE" }, { value: lower, label: "lower case" }, { value: trim, label: "Trim spaces" }, { value: length, label: "Length" } ] }
+    templates:
+      typescript: rt.text({{in.text}}, {{str.op}})
+      python: rt.text({{in.text}}, {{str.op}})
+      ruby: Rt.text({{in.text}}, {{str.op}})
+      go: rt.Text({{in.text}}, {{str.op}})
+      rust: rt::text(&{{in.text}}, {{str.op}})
+      csharp: Rt.Text({{in.text}}, {{str.op}})
+
+  - id: mathOp
+    name: Math
+    category: Numbers
+    description: Calculates with two numbers. Dividing by zero gives an empty value.
+    pure: true
+    capability: any
+    pins:
+      - { id: a, name: A, direction: in, type: any }
+      - { id: b, name: B, direction: in, type: any }
+      - { id: value, name: Result, direction: out, type: any }
+    props:
+      - { key: op, label: Operation, type: select, default: add, options: [ { value: add, label: "A + B" }, { value: sub, label: "A - B" }, { value: mul, label: "A x B" }, { value: div, label: "A / B" }, { value: mod, label: "A mod B" }, { value: min, label: "Smaller" }, { value: max, label: "Larger" } ] }
+    templates:
+      typescript: rt.math({{in.a}}, {{str.op}}, {{in.b}})
+      python: rt.math({{in.a}}, {{str.op}}, {{in.b}})
+      ruby: Rt.math({{in.a}}, {{str.op}}, {{in.b}})
+      go: rt.Math({{in.a}}, {{str.op}}, {{in.b}})
+      rust: rt::math(&{{in.a}}, {{str.op}}, &{{in.b}})
+      csharp: Rt.Math({{in.a}}, {{str.op}}, {{in.b}})
+
+  - id: now
+    name: Now
+    category: Values
+    description: The current time as ISO text, for example 2025-01-31T12:00:00.000Z.
+    pure: true
+    capability: any
+    pins:
+      - { id: value, name: Time, direction: out, type: string }
+    props: []
+    templates:
+      typescript: rt.now()
+      python: rt.now()
+      ruby: Rt.now
+      go: rt.Now()
+      rust: rt::now()
+      csharp: Rt.Now()
+
+  - id: newId
+    name: New id
+    category: Values
+    description: A new random unique id (UUID).
+    pure: true
+    capability: any
+    pins:
+      - { id: value, name: Id, direction: out, type: string }
+    props: []
+    templates:
+      typescript: rt.newId()
+      python: rt.new_id()
+      ruby: Rt.new_id
+      go: rt.NewId()
+      rust: rt::new_id()
+      csharp: Rt.NewId()

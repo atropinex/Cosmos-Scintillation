@@ -1,0 +1,76 @@
+.test {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+    padding: 14px;
+    overflow: auto;
+}
+
+.pick {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    max-width: 320px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 12px;
+    border: 1px solid var(--line);
+    border-radius: calc(var(--radius) + 2px);
+    background: var(--panel);
+}
+
+.card h3 {
+    margin: 0;
+    font-size: 13px;
+}
+
+.line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+}
+
+.line > select,
+.line > input {
+    width: auto;
+    min-width: 120px;
+}
+
+.note {
+    margin: 0;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.good {
+    color: var(--accent);
+    font-size: 12px;
+}
+
+.bad {
+    margin: 0;
+    color: var(--danger, #e5484d);
+    font-size: 12px;
+}
+
+.scroll {
+    max-height: 260px;
+    overflow: auto;
+}
+
+.issues {
+    max-height: 200px;
+    margin: 0;
+    padding-left: 18px;
+    overflow: auto;
+    font-size: 12px;
+}

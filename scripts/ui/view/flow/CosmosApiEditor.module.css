@@ -1,0 +1,115 @@
+.editor {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 8px;
+    min-height: 52px;
+    padding: 0 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.title {
+    margin: 0 8px 0 0;
+    font-size: 15px;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.group {
+    display: flex;
+    gap: 2px;
+    padding-right: 8px;
+    margin-right: 4px;
+    border-right: 1px solid var(--line);
+}
+
+.select {
+    padding: 5px 8px;
+    border: 1px solid var(--line-strong);
+    border-radius: 7px;
+    background: var(--background);
+    color: var(--text);
+    font: inherit;
+}
+
+.grow {
+    flex: 1;
+}
+
+.drawer {
+    flex: none;
+    padding: 10px 16px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--panel);
+    animation: drop var(--t-med) var(--ease-out) both;
+}
+
+.cols {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 4px 24px;
+}
+
+.packages {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.package {
+    display: flex;
+    gap: 8px;
+    align-items: flex-start;
+    max-width: 300px;
+    padding: 8px 10px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    cursor: pointer;
+    transition: border-color var(--t-fast) var(--ease-soft);
+}
+
+.package:hover {
+    border-color: var(--accent);
+}
+
+.package span {
+    display: flex;
+    flex-direction: column;
+}
+
+.package small,
+.muted {
+    color: var(--muted);
+}
+
+.work {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}
+
+@keyframes drop {
+    from {
+        opacity: 0;
+        transform: translateY(-6px);
+    }
+}
+
+.detect {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 14px;
+    border-bottom: 1px solid var(--line);
+    background: var(--accent-soft);
+    color: var(--text);
+    font-size: 12px;
+}

@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+    "jsx": "react-jsx",
+    "types": ["vite/client"],
+    "strict": true,
+    "noUnusedLocals": true,
+    "noFallthroughCasesInSwitch": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "noEmit": true
+  },
+  "include": [
+    "scripts/ui/**/*.ts",
+    "scripts/ui/**/*.tsx",
+    "scripts/common/CommonInterface.ts",
+    "scripts/common/projects/CosmosContract.ts",
+    "scripts/common/utils/**/*.ts",
+    "scripts/global.d.ts",
+    "scripts/vite-env.d.ts"
+  ],
+  "exclude": ["scripts/ui/mainindex.ts"]
+}

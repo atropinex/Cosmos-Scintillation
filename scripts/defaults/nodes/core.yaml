@@ -1,0 +1,145 @@
+# Core nodes: the entry points of a flow, the response and the log. See docs/FORMATS.md section 3.
+# Generated code can always use `req` (the request), `res`/`w` (the answer, REST only) and `ws` (the connection, WebSocket only).
+nodes:
+  - id: route
+    name: Route
+    category: Flow
+    description: Starts a REST endpoint. Everything wired to "Then" runs when this path is called.
+    pure: false
+    capability: rest
+    pins:
+      - { id: then, name: Then, direction: out, type: exec }
+    props:
+      - { key: method, label: Method, type: select, default: GET, options: [ { value: GET, label: GET }, { value: POST, label: POST }, { value: PUT, label: PUT }, { value: PATCH, label: PATCH }, { value: DELETE, label: DELETE } ] }
+      - { key: path, label: Path, type: text, default: "/items", hint: "Use :id for a path parameter, for example /items/:id" }
+      - { key: public, label: Public (no API key), type: boolean, default: false }
+    templates:
+      typescript: |
+        route("{{route.method}}", "{{route.path}}", {{requireAuth}}, (req, res) => {
+            {{flow.then}}
+            return rt.send(res, 204, null);
+        });
+      python: |
+        @route("{{route.method}}", "{{route.braces}}", {{requireAuth}})
+        def handler_{{id}}(req):
+            pass
+            {{flow.then}}
+            return rt.send(204, None)
+      ruby: |
+        route :{{route.methodLower}}, "{{route.path}}", {{requireAuth}} do |req|
+          {{flow.then}}
+          Rt.reply(self, 204, nil)
+        end
+      go: |
+        route(mux, "{{route.method}} {{route.braces}}", {{requireAuth}}, func(w http.ResponseWriter, req *rt.Req) {
+            {{flow.then}}
+            rt.Send(w, 204, nil)
+        })
+      rust: |
+        let app = rt::route(app, "{{route.method}}", "{{route.path}}", {{requireAuth}}, |req: rt::Req| async move {
+            {{flow.then}}
+            Ok::<rt::Response, rt::ApiError>(rt::send(&Value::from(204), &Value::Null))
+        });
+      csharp: |
+        Rt.Route(app, "{{route.method}}", "{{route.braces}}", {{requireAuth}}, (req) =>
+        {
+            {{flow.then}}
+            return Rt.Send(204, null);
+        });
+
+  - id: wsEvent
+    name: WebSocket event
+    category: Flow
+    description: Starts when a client sends a JSON message {"event":"name","data":...} with this event name.
+    pure: false
+    capability: websocket
+    pins:
+      - { id: then, name: Then, direction: out, type: exec }
+    props:
+      - { key: event, label: Event name, type: text, default: message }
+    templates:
+      typescript: |
+        handlers[{{str.event}}] = (ws, req) => {
+            {{flow.then}}
+        };
+      python: |
+        @ws_event({{str.event}})
+        async def ws_{{id}}(ws, req):
+            pass
+            {{flow.then}}
+      ruby: |
+        ws_event {{str.event}} do |ws, req|
+          {{flow.then}}
+        end
+      go: |
+        handlers[{{str.event}}] = func(ws *rt.Conn, req *rt.Req) {
+            {{flow.then}}
+        }
+      rust: |
+        {{str.event}} => {
+            {{flow.then}}
+        }
+      csharp: |
+        case {{str.event}}:
+        {
+            {{flow.then}}
+            break;
+        }
+
+  - id: respond
+    name: Respond
+    category: Flow
+    description: Sends the answer as JSON and ends the flow. Status 204 sends no body.
+    pure: false
+    capability: rest
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: status, name: Status, direction: in, type: number, default: 200 }
+      - { id: body, name: Body, direction: in, type: any }
+    props: []
+    templates:
+      typescript: |
+        return rt.send(res, {{in.status}}, {{in.body}});
+      python: |
+        return rt.send({{in.status}}, {{in.body}})
+      ruby: |
+        Rt.reply(self, {{in.status}}, {{in.body}})
+      go: |
+        rt.Send(w, {{in.status}}, {{in.body}})
+        return
+      rust: |
+        return Ok(rt::send(&{{in.status}}, &{{in.body}}));
+      csharp: |
+        return Rt.Send({{in.status}}, {{in.body}});
+
+  - id: log
+    name: Log
+    category: Flow
+    description: Writes a line to the server log. Line breaks in the text are removed.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: message, name: Message, direction: in, type: any }
+    props:
+      - { key: level, label: Level, type: select, default: info, options: [ { value: info, label: Info }, { value: warn, label: Warning }, { value: error, label: Error } ] }
+    templates:
+      typescript: |
+        rt.log({{str.level}}, {{in.message}});
+        {{flow.then}}
+      python: |
+        rt.log({{str.level}}, {{in.message}})
+        {{flow.then}}
+      ruby: |
+        Rt.log({{str.level}}, {{in.message}})
+        {{flow.then}}
+      go: |
+        rt.Log({{str.level}}, {{in.message}})
+        {{flow.then}}
+      rust: |
+        rt::log({{str.level}}, &{{in.message}});
+        {{flow.then}}
+      csharp: |
+        Rt.Log({{str.level}}, {{in.message}});
+        {{flow.then}}

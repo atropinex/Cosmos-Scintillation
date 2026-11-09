@@ -1,0 +1,99 @@
+.page {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 10px;
+    height: 56px;
+    padding: 0 24px;
+    border-bottom: 1px solid var(--line);
+}
+
+.title {
+    margin: 0;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.sub {
+    color: var(--muted);
+}
+
+.grow {
+    flex: 1;
+}
+
+.body {
+    flex: 1;
+    padding: 20px 24px;
+    overflow-y: auto;
+}
+
+.card {
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--panel);
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.names {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.name {
+    font-weight: 600;
+}
+
+.meta {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.desc {
+    margin: 8px 0;
+    color: var(--muted);
+}
+
+.tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.problem {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin: 8px 0 0;
+    color: #e7b84b;
+    font-size: 12px;
+}
+
+.tools {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 20px;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}

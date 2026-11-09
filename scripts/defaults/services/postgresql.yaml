@@ -1,0 +1,12 @@
+id: postgresql
+name: PostgreSQL
+description: A PostgreSQL server that keeps its data inside the app's own folder.
+category: Database
+kind: process
+defaultPort: 5432
+detect: [ postgres ]
+installHint: Install PostgreSQL from postgresql.org, or pick the postgres program yourself.
+# The postgres program lives next to initdb in the same folder, so "initdb" is looked up next to it.
+args: [ "-D", "{data}", "-p", "{port}", "-c", "listen_addresses={host}" ]
+prepare:
+  - { program: initdb, args: [ "-D", "{data}", "-U", "postgres", "--auth=trust", "--encoding=UTF8" ], skipIf: "{data}/PG_VERSION" }

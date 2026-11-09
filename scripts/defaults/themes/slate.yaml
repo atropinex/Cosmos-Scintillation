@@ -1,0 +1,15 @@
+name: Slate
+author: Cosmos
+mode: dark
+radius: 8
+motion: 1
+
+colors:
+  background: "#101418"
+  panel: "#161b21"
+  panelRaised: "#1e252d"
+  text: "#e6eaee"
+  muted: "#8794a1"
+  accent: "#7aa2d6"
+  onAccent: "#0b1118"
+  danger: "#ef7676"

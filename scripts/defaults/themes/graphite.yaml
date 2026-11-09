@@ -1,0 +1,17 @@
+# Cosmos-Scintillation theme. Copy this file in your themes folder and edit it, then press "Reload themes".
+# Wrap colours in quotes: an unquoted "#" starts a YAML comment.
+name: Graphite
+author: Cosmos
+mode: dark          # dark | light. Styles native controls such as scrollbars and dropdowns.
+radius: 10          # corner radius in px (0 to 24)
+motion: 1           # animation duration multiplier: 0 = no animation, 1 = normal, 2 = twice as slow
+
+colors:
+  background: "#0e1013"
+  panel: "#15171b"
+  panelRaised: "#1d2025"
+  text: "#e8e9eb"
+  muted: "#8a8f98"
+  accent: "#7c8cff"
+  onAccent: "#0b0e1f"   # text on top of accent coloured buttons
+  danger: "#f26b6b"

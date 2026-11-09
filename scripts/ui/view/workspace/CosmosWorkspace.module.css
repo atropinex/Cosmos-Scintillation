@@ -1,0 +1,124 @@
+.workspace {
+    display: flex;
+    height: 100%;
+}
+
+.side {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    width: 232px;
+    border-right: 1px solid var(--line);
+    background: var(--panel);
+}
+
+.project-bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 6px;
+    height: 52px;
+    padding: 0 10px 0 16px;
+    border-bottom: 1px solid var(--line);
+}
+
+.project-name {
+    flex: 1;
+    overflow: hidden;
+    font-weight: 600;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.lists {
+    flex: 1;
+    min-height: 0;
+    padding: 6px 8px 12px;
+    overflow-y: auto;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+    padding: 0 4px 0 8px;
+    color: var(--muted);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    height: 32px;
+    padding: 0 8px;
+    border-radius: calc(var(--radius) - 3px);
+    color: var(--muted);
+    cursor: pointer;
+    transition: background var(--t-fast) var(--ease-soft), color var(--t-fast) var(--ease-soft), transform var(--t-fast) var(--ease-out);
+    animation: pop-in var(--t-med) var(--ease-out) both;
+}
+
+.item:hover {
+    background: var(--wash);
+    color: var(--text);
+}
+
+.item:active {
+    transform: scale(0.98);
+}
+
+.active,
+.active:hover {
+    background: var(--accent-soft);
+    color: var(--text);
+}
+
+.item-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.rename {
+    flex: 1;
+    min-width: 0;
+    padding: 3px 6px;
+    border: 1px solid var(--accent);
+    border-radius: 6px;
+    background: var(--background);
+    color: var(--text);
+    font: inherit;
+    outline: none;
+}
+
+.foot {
+    flex: none;
+    padding: 6px 10px;
+    border-top: 1px solid var(--line);
+}
+
+.editor {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    animation: slide-in var(--t-med) var(--ease-out) both;
+}
+
+@keyframes pop-in {
+    from {
+        opacity: 0;
+        transform: translateX(-6px);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+}

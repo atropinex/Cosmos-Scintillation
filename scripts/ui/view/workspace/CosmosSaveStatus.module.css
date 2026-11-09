@@ -1,0 +1,40 @@
+.status {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 4px 10px;
+    border: 0;
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background var(--t-fast) var(--ease-soft), color var(--t-fast) var(--ease-soft);
+}
+
+.status:hover {
+    background: var(--wash);
+}
+
+.light {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+    transition: background var(--t-med) var(--ease-soft), transform var(--t-med) var(--ease-out);
+}
+
+.saved .light {
+    background: #5fcf8e;
+}
+
+.dirty .light,
+.saving .light {
+    background: #e7b84b;
+    transform: scale(1.25);
+}
+
+.error {
+    color: var(--danger);
+}

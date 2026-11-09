@@ -1,0 +1,106 @@
+.summary {
+    margin: 0 0 8px;
+}
+
+.muted {
+    color: var(--muted);
+}
+
+.bad {
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    color: var(--danger);
+}
+
+.heading {
+    margin: 16px 0 6px;
+    color: var(--muted);
+    font-size: 12px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.findings {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.findings li {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 3px 0;
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.ok {
+    color: #5fcf8e;
+}
+
+.warn {
+    color: #e7b84b;
+}
+
+.risk {
+    color: var(--danger);
+}
+
+.files {
+    display: flex;
+    height: 320px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    overflow: hidden;
+}
+
+.names {
+    display: flex;
+    flex: none;
+    flex-direction: column;
+    width: 210px;
+    overflow-y: auto;
+    border-right: 1px solid var(--line);
+}
+
+.name {
+    padding: 7px 12px;
+    border: 0;
+    background: transparent;
+    color: var(--muted);
+    font: inherit;
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+    transition: background var(--t-fast) var(--ease-soft);
+}
+
+.name:hover {
+    background: var(--wash);
+}
+
+.picked {
+    background: var(--accent-soft);
+    color: var(--text);
+}
+
+.code {
+    flex: 1;
+    min-width: 0;
+    margin: 0;
+    padding: 12px;
+    overflow: auto;
+    background: var(--background);
+    font-family: ui-monospace, Consolas, monospace;
+    font-size: 12px;
+    line-height: 1.55;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(4px);
+    }
+}

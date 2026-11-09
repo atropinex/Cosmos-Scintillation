@@ -1,0 +1,36 @@
+id: mysql
+name: MySQL
+description: The widely used open source relational database.
+family: relational
+exporter: sql
+defaultPort: 3306
+scriptExtension: sql
+terms: { container: Table, containers: Tables, row: Row, rows: Rows, field: Column, fields: Columns }
+relations: true
+defaultType: varchar(255)
+keyType: bigint
+types:
+  - { id: bigint, label: bigint }
+  - { id: int, label: int }
+  - { id: smallint, label: smallint }
+  - { id: tinyint(1), label: tinyint(1) (boolean) }
+  - { id: varchar(255), label: varchar(255) }
+  - { id: char(36), label: char(36) (uuid) }
+  - { id: text, label: text }
+  - { id: longtext, label: longtext }
+  - { id: "decimal(12,2)", label: "decimal(12,2)" }
+  - { id: float, label: float }
+  - { id: double, label: double }
+  - { id: date, label: date }
+  - { id: time, label: time }
+  - { id: datetime, label: datetime }
+  - { id: timestamp, label: timestamp }
+  - { id: json, label: json }
+  - { id: blob, label: blob }
+sql:
+  quote: "`"
+  autoIncrement: auto_increment
+  tableSuffix: " ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
+  header: ""
+  trueLiteral: "1"
+  falseLiteral: "0"

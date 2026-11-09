@@ -1,0 +1,163 @@
+/* === Theme tokens ===
+   Colours are registered properties, so a theme change cross-fades instead of snapping.
+   A theme's YAML file fills them in at runtime (CosmosTheme.Controller). */
+@property --accent {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #5b8def;
+}
+
+@property --background {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #0f1012;
+}
+
+@property --panel {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #16171a;
+}
+
+@property --panel-raised {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #1e2024;
+}
+
+@property --text {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #e8e9eb;
+}
+
+@property --muted {
+    syntax: "<color>";
+    inherits: true;
+    initial-value: #8a8d94;
+}
+
+:root {
+    --on-accent: #0a1020;
+    --danger: #f26b6b;
+    --radius: 10px;
+    --motion: 1; /* duration multiplier from the theme; 0 turns animation off */
+
+    --line: color-mix(in srgb, var(--text) 9%, transparent);
+    --line-strong: color-mix(in srgb, var(--text) 16%, transparent);
+    --wash: color-mix(in srgb, var(--text) 6%, transparent);
+    --wash-strong: color-mix(in srgb, var(--text) 11%, transparent);
+    --accent-soft: color-mix(in srgb, var(--accent) 18%, transparent);
+    --stage: color-mix(in srgb, var(--background) 82%, var(--text));
+
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+    --t-fast: calc(0.14s * var(--motion));
+    --t-med: calc(0.28s * var(--motion));
+    --t-slow: calc(0.5s * var(--motion));
+
+    font-family: Inter, "Segoe UI Variable Text", "Segoe UI", system-ui, sans-serif;
+    font-size: 13px;
+    transition:
+        --accent var(--t-med) var(--ease-soft),
+        --background var(--t-med) var(--ease-soft),
+        --panel var(--t-med) var(--ease-soft),
+        --panel-raised var(--t-med) var(--ease-soft),
+        --text var(--t-med) var(--ease-soft),
+        --muted var(--t-med) var(--ease-soft);
+}
+
+/* === Base === */
+* {
+    box-sizing: border-box;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+html,
+body,
+#root {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    overflow: hidden;
+    background: var(--background);
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+}
+
+button {
+    font: inherit;
+    color: inherit;
+}
+
+input,
+select,
+textarea {
+    font: inherit;
+    color: inherit;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 1px;
+}
+
+::selection {
+    background: var(--accent-soft);
+}
+
+/* Slim scrollbars that follow the theme. */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: var(--line-strong) transparent;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 6px;
+    background: var(--line-strong);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent;
+}
+
+/* Shared entrance for anything that appears: pages, dialogs, menus. */
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+/* While the window is hidden or minimised, animations pause, so the app idles at no cost (see CosmosApp.Controller). */
+[data-hidden="true"] *,
+[data-hidden="true"] *::before,
+[data-hidden="true"] *::after {
+    animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

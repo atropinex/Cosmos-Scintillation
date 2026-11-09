@@ -1,0 +1,201 @@
+# Data nodes. They work on the tables of the database that is bound to the API, through the generated data store.
+# The store only knows the columns of the schema, so a request can never add or change anything else.
+# A missing or invalid value stops the flow with a 400 answer, a clash with a unique column with 409.
+nodes:
+  - id: dbFind
+    name: Find rows
+    category: Database
+    description: Rows whose column equals the value (primary key when no column is chosen). An empty value returns the first 1000 rows.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: value, name: Match, direction: in, type: any }
+      - { id: rows, name: Rows, direction: out, type: list }
+      - { id: first, name: First, direction: out, type: any }
+    props:
+      - { key: table, label: Table, type: table, default: "" }
+      - { key: column, label: Column, type: column, default: "", hint: "Empty means the primary key" }
+    templates:
+      typescript: |
+        const {{out.rows}} = store.find({{str.table}}, {{str.column}}, {{in.value}});
+        const {{out.first}} = rt.first({{out.rows}});
+        {{flow.then}}
+      python: |
+        {{out.rows}} = store.find({{str.table}}, {{str.column}}, {{in.value}})
+        {{out.first}} = rt.first({{out.rows}})
+        {{flow.then}}
+      ruby: |
+        {{out.rows}} = Store.find({{str.table}}, {{str.column}}, {{in.value}})
+        {{out.first}} = Rt.first({{out.rows}})
+        {{flow.then}}
+      go: |
+        {{out.rows}} := store.Find({{str.table}}, {{str.column}}, {{in.value}})
+        {{out.first}} := rt.First({{out.rows}})
+        {{flow.then}}
+      rust: |
+        let {{out.rows}} = store::find({{str.table}}, {{str.column}}, &{{in.value}})?;
+        let {{out.first}} = rt::first(&{{out.rows}});
+        {{flow.then}}
+      csharp: |
+        var {{out.rows}} = Store.Find({{str.table}}, {{str.column}}, {{in.value}});
+        var {{out.first}} = Rt.First({{out.rows}});
+        {{flow.then}}
+
+  - id: dbInsert
+    name: Insert row
+    category: Database
+    description: Adds a row. Without a wired "Values" the JSON body is used. Only the columns of the table are kept.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: values, name: Values, direction: in, type: object }
+      - { id: row, name: Row, direction: out, type: object }
+    props:
+      - { key: table, label: Table, type: table, default: "" }
+    templates:
+      typescript: |
+        const {{out.row}} = store.insert({{str.table}}, rt.orBody(req, {{in.values}}));
+        {{flow.then}}
+      python: |
+        {{out.row}} = store.insert({{str.table}}, rt.or_body(req, {{in.values}}))
+        {{flow.then}}
+      ruby: |
+        {{out.row}} = Store.insert({{str.table}}, Rt.or_body(req, {{in.values}}))
+        {{flow.then}}
+      go: |
+        {{out.row}} := store.Insert({{str.table}}, rt.OrBody(req, {{in.values}}))
+        {{flow.then}}
+      rust: |
+        let {{out.row}} = store::insert({{str.table}}, &rt::or_body(&req, &{{in.values}}))?;
+        {{flow.then}}
+      csharp: |
+        var {{out.row}} = Store.Insert({{str.table}}, Rt.OrBody(req, {{in.values}}));
+        {{flow.then}}
+
+  - id: dbUpdate
+    name: Update rows
+    category: Database
+    description: Changes the rows whose column equals the value. The primary key is never changed. An empty match changes nothing.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: value, name: Match, direction: in, type: any }
+      - { id: values, name: Values, direction: in, type: object }
+      - { id: row, name: Row, direction: out, type: object }
+      - { id: count, name: Count, direction: out, type: number }
+    props:
+      - { key: table, label: Table, type: table, default: "" }
+      - { key: column, label: Column, type: column, default: "", hint: "Empty means the primary key" }
+    templates:
+      typescript: |
+        const u_{{id}} = store.update({{str.table}}, {{str.column}}, {{in.value}}, rt.orBody(req, {{in.values}}));
+        const {{out.row}} = rt.first(u_{{id}});
+        const {{out.count}} = rt.count(u_{{id}});
+        {{flow.then}}
+      python: |
+        u_{{id}} = store.update({{str.table}}, {{str.column}}, {{in.value}}, rt.or_body(req, {{in.values}}))
+        {{out.row}} = rt.first(u_{{id}})
+        {{out.count}} = rt.count(u_{{id}})
+        {{flow.then}}
+      ruby: |
+        u_{{id}} = Store.update({{str.table}}, {{str.column}}, {{in.value}}, Rt.or_body(req, {{in.values}}))
+        {{out.row}} = Rt.first(u_{{id}})
+        {{out.count}} = Rt.count(u_{{id}})
+        {{flow.then}}
+      go: |
+        u_{{id}} := store.Update({{str.table}}, {{str.column}}, {{in.value}}, rt.OrBody(req, {{in.values}}))
+        {{out.row}} := rt.First(u_{{id}})
+        {{out.count}} := rt.Count(u_{{id}})
+        {{flow.then}}
+      rust: |
+        let u_{{id}} = store::update({{str.table}}, {{str.column}}, &{{in.value}}, &rt::or_body(&req, &{{in.values}}))?;
+        let {{out.row}} = rt::first(&u_{{id}});
+        let {{out.count}} = rt::count(&u_{{id}});
+        {{flow.then}}
+      csharp: |
+        var u_{{id}} = Store.Update({{str.table}}, {{str.column}}, {{in.value}}, Rt.OrBody(req, {{in.values}}));
+        var {{out.row}} = Rt.First(u_{{id}});
+        var {{out.count}} = Rt.Count(u_{{id}});
+        {{flow.then}}
+
+  - id: dbDelete
+    name: Delete rows
+    category: Database
+    description: Deletes the rows whose column equals the value. An empty match deletes nothing, never everything.
+    pure: false
+    capability: any
+    pins:
+      - { id: in, name: "", direction: in, type: exec }
+      - { id: then, name: "", direction: out, type: exec }
+      - { id: value, name: Match, direction: in, type: any }
+      - { id: count, name: Count, direction: out, type: number }
+    props:
+      - { key: table, label: Table, type: table, default: "" }
+      - { key: column, label: Column, type: column, default: "", hint: "Empty means the primary key" }
+    templates:
+      typescript: |
+        const {{out.count}} = store.remove({{str.table}}, {{str.column}}, {{in.value}});
+        {{flow.then}}
+      python: |
+        {{out.count}} = store.remove({{str.table}}, {{str.column}}, {{in.value}})
+        {{flow.then}}
+      ruby: |
+        {{out.count}} = Store.remove({{str.table}}, {{str.column}}, {{in.value}})
+        {{flow.then}}
+      go: |
+        {{out.count}} := store.Remove({{str.table}}, {{str.column}}, {{in.value}})
+        {{flow.then}}
+      rust: |
+        let {{out.count}} = store::remove({{str.table}}, {{str.column}}, &{{in.value}})?;
+        {{flow.then}}
+      csharp: |
+        var {{out.count}} = Store.Remove({{str.table}}, {{str.column}}, {{in.value}});
+        {{flow.then}}
+
+  - id: makeObject
+    name: Make object
+    category: Values
+    description: Builds a JSON object from up to three named values. A pair with an empty name is left out.
+    pure: true
+    capability: any
+    pins:
+      - { id: a, name: A, direction: in, type: any }
+      - { id: b, name: B, direction: in, type: any }
+      - { id: c, name: C, direction: in, type: any }
+      - { id: value, name: Object, direction: out, type: object }
+    props:
+      - { key: keyA, label: Name of A, type: text, default: "" }
+      - { key: keyB, label: Name of B, type: text, default: "" }
+      - { key: keyC, label: Name of C, type: text, default: "" }
+    templates:
+      typescript: rt.obj({{str.keyA}}, {{in.a}}, {{str.keyB}}, {{in.b}}, {{str.keyC}}, {{in.c}})
+      python: rt.obj({{str.keyA}}, {{in.a}}, {{str.keyB}}, {{in.b}}, {{str.keyC}}, {{in.c}})
+      ruby: Rt.obj({{str.keyA}}, {{in.a}}, {{str.keyB}}, {{in.b}}, {{str.keyC}}, {{in.c}})
+      go: rt.Obj({{str.keyA}}, {{in.a}}, {{str.keyB}}, {{in.b}}, {{str.keyC}}, {{in.c}})
+      rust: rt::obj([({{str.keyA}}, &{{in.a}}), ({{str.keyB}}, &{{in.b}}), ({{str.keyC}}, &{{in.c}})])
+      csharp: Rt.Obj({{str.keyA}}, {{in.a}}, {{str.keyB}}, {{in.b}}, {{str.keyC}}, {{in.c}})
+
+  - id: getField
+    name: Get field
+    category: Values
+    description: One field of an object, for example "id" of a row. Empty when missing.
+    pure: true
+    capability: any
+    pins:
+      - { id: object, name: Object, direction: in, type: any }
+      - { id: value, name: Value, direction: out, type: any }
+    props:
+      - { key: key, label: Field, type: text, default: id }
+    templates:
+      typescript: rt.field({{in.object}}, {{str.key}})
+      python: rt.field({{in.object}}, {{str.key}})
+      ruby: Rt.field({{in.object}}, {{str.key}})
+      go: rt.Field({{in.object}}, {{str.key}})
+      rust: rt::field(&{{in.object}}, {{str.key}})
+      csharp: Rt.Field({{in.object}}, {{str.key}})

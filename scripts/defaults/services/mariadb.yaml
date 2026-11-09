@@ -1,0 +1,11 @@
+id: mariadb
+name: MariaDB
+description: A MariaDB server that keeps its data inside the app's own folder.
+category: Database
+kind: process
+defaultPort: 3307
+detect: [ mariadbd, mysqld ]
+installHint: Install MariaDB from mariadb.org, or pick the mariadbd program yourself.
+args: [ "--datadir={data}", "--port={port}", "--bind-address={host}" ]
+prepare:
+  - { program: mariadb-install-db, args: [ "--datadir={data}", "--auth-root-authentication-method=normal" ], skipIf: "{data}/mysql" }

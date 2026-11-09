@@ -1,0 +1,15 @@
+name: Paper
+author: Cosmos
+mode: light
+radius: 10
+motion: 1
+
+colors:
+  background: "#f1f1f2"
+  panel: "#fafafa"
+  panelRaised: "#ffffff"
+  text: "#1a1b1e"
+  muted: "#6b6e75"
+  accent: "#4b5bdc"
+  onAccent: "#ffffff"
+  danger: "#d64545"

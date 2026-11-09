@@ -1,0 +1,116 @@
+.editor {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field {
+    position: relative;
+}
+
+.area {
+    width: 100%;
+    min-height: 90px;
+    line-height: 1.45;
+    tab-size: 2;
+}
+
+.invalid {
+    border-color: var(--danger, #e5484d);
+}
+
+.popup {
+    position: absolute;
+    z-index: 5;
+    top: 100%;
+    left: 8px;
+    margin-top: 2px !important;
+    min-width: 200px;
+    margin: 0;
+    padding: 4px;
+    list-style: none;
+    border: 1px solid var(--line-strong);
+    border-radius: var(--radius);
+    background: var(--panel-raised);
+    box-shadow: 0 12px 30px #0006;
+}
+
+.option {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    width: 100%;
+    padding: 4px 8px;
+    border: 0;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text);
+    font-size: 12px;
+    text-align: left;
+    cursor: pointer;
+}
+
+.option span {
+    color: var(--muted);
+}
+
+.chosen,
+.option:hover {
+    background: var(--wash-strong);
+}
+
+.tools {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 6px;
+}
+
+.chip {
+    padding: 2px 8px;
+    border: 1px dashed var(--line-strong);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--muted);
+    font-size: 11px;
+    cursor: pointer;
+}
+
+.chip:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+.problem {
+    color: var(--danger, #e5484d);
+    font-size: 11px;
+}
+
+.docked {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 8px 10px;
+    border: 1px dashed var(--line-strong);
+    border-radius: calc(var(--radius) - 4px);
+    color: var(--muted);
+    font-size: 12px;
+}
+
+/* In a window the box takes all the room, so resizing the window resizes the text area. */
+.fill {
+    flex: 1;
+    min-height: 0;
+}
+
+.fill .field {
+    flex: 1;
+    min-height: 0;
+}
+
+.fill .area {
+    height: 100%;
+    resize: none;
+}

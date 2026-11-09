@@ -1,0 +1,130 @@
+.data {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 4px 8px 12px;
+}
+
+.head {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 4px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.none {
+    padding: 12px;
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.table {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: 100%;
+    padding: 6px 8px;
+    border: 0;
+    border-radius: 7px;
+    background: transparent;
+    color: var(--text);
+    text-align: left;
+    cursor: pointer;
+}
+
+.table:hover,
+.open {
+    background: var(--wash-strong);
+}
+
+.name {
+    flex: 1;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.count,
+.type {
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.detail {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 6px 4px 8px 14px;
+    animation: rise var(--t-med) var(--ease-out) both;
+}
+
+.actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+}
+
+.hint {
+    margin: 4px 0 0;
+    color: var(--muted);
+    font-size: 11px;
+}
+
+.column {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    font-size: 12px;
+}
+
+.use {
+    margin-top: 4px;
+}
+
+.sample {
+    margin-top: 6px;
+}
+
+.scroll {
+    max-height: 140px;
+    overflow: auto;
+    border: 1px solid var(--line);
+    border-radius: 6px;
+}
+
+.scroll table {
+    border-collapse: collapse;
+    font-size: 11px;
+}
+
+.scroll th,
+.scroll td {
+    max-width: 90px;
+    padding: 3px 6px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    text-align: left;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.scroll th {
+    color: var(--muted);
+    font-weight: 600;
+}
+
+@keyframes rise {
+    from {
+        opacity: 0;
+        transform: translateY(6px);
+    }
+
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}

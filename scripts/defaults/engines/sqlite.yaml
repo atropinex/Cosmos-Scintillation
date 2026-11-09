@@ -1,0 +1,27 @@
+id: sqlite
+name: SQLite
+description: A small database that lives in a single file. Good for apps and prototypes.
+family: relational
+exporter: sql
+defaultPort: 0
+scriptExtension: sql
+terms: { container: Table, containers: Tables, row: Row, rows: Rows, field: Column, fields: Columns }
+relations: true
+defaultType: TEXT
+keyType: INTEGER
+types:
+  - { id: INTEGER, label: INTEGER }
+  - { id: TEXT, label: TEXT }
+  - { id: REAL, label: REAL }
+  - { id: NUMERIC, label: NUMERIC }
+  - { id: BLOB, label: BLOB }
+  - { id: BOOLEAN, label: BOOLEAN }
+  - { id: DATETIME, label: DATETIME }
+  - { id: JSON, label: JSON }
+sql:
+  quote: '"'
+  autoIncrement: autoincrement
+  tableSuffix: ""
+  header: "PRAGMA foreign_keys = ON;"
+  trueLiteral: "1"
+  falseLiteral: "0"

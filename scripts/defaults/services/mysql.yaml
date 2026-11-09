@@ -1,0 +1,11 @@
+id: mysql
+name: MySQL
+description: A MySQL server that keeps its data inside the app's own folder.
+category: Database
+kind: process
+defaultPort: 3306
+detect: [ mysqld ]
+installHint: Install MySQL from mysql.com, or pick the mysqld program yourself.
+args: [ "--datadir={data}", "--port={port}", "--bind-address={host}", "--mysqlx=OFF" ]
+prepare:
+  - { program: mysqld, args: [ "--initialize-insecure", "--datadir={data}" ], skipIf: "{data}/mysql" }

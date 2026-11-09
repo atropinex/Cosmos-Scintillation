@@ -1,0 +1,43 @@
+.editor {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.bar {
+    display: flex;
+    flex: none;
+    align-items: center;
+    gap: 16px;
+    height: 52px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--line);
+}
+
+.title-block {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.title {
+    margin: 0;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.engine {
+    color: var(--muted);
+    font-size: 12px;
+}
+
+.grow {
+    flex: 1;
+}
+
+.body {
+    position: relative;
+    display: flex;
+    flex: 1;
+    min-height: 0;
+}

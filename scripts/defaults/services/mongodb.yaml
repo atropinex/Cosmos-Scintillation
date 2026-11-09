@@ -1,0 +1,9 @@
+id: mongodb
+name: MongoDB
+description: A MongoDB server that keeps its data inside the app's own folder.
+category: Database
+kind: process
+defaultPort: 27017
+detect: [ mongod ]
+installHint: Install MongoDB Community Server from mongodb.com, or pick the mongod program yourself.
+args: [ "--dbpath", "{data}", "--port", "{port}", "--bind_ip", "{host}" ]
